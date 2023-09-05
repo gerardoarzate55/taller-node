@@ -6,4 +6,4 @@ app.get('/', (req, res) => {
     res.send('Hola mundo');
 });
 
-app.listen(puerto, () => console.log(`Servidor iniciado en el puerto ${puerto}`));
+app.listen(process.env.PORT || puerto, () => console.log(`Servidor iniciado en el puerto ${puerto}`));
