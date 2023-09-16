@@ -4,7 +4,7 @@
   "description": "Taller de desarrollo de una API con Node.js",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,9 @@
   "homepage": "https://github.com/gerardoarzate55/taller-node#homepage",
   "dependencies": {
     "express": "^4.18.2",
-    "nodemon": "^3.0.1"
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1",
+    "util": "^0.12.5"
   }
 }
