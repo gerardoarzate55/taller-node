@@ -30,7 +30,27 @@ router.get('/:pokeName([A-Za-z]+)', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    return res.status(200).send({ code: 1, message: req.body });
+    const params = req.body;
+    const pok_name = params.pok_name || null;
+    const pok_height = params.pok_height || null;
+    const pok_weight = params.pok_weight || null;
+    const pok_base_experience = params.pok_base_experience || null;
+
+    let query = 'INSERT INTO pokemon (pok_name, pok_height, pok_weight, pok_base_experience)';
+    query += `VALUES ('${pok_name}', ${pok_height}, ${pok_weight}, ${pok_base_experience})`;
+
+    try {
+        const queryResult = await db.query(query);
+
+        if (queryResult.affectedRows < 1) {
+            throw new Error('Se ejecutó la query pero no se insertaron datos');
+        }
+
+        return res.status(201).send({ code: 201, message: 'Pokémon insertado correctamente' });
+    } catch(e) {
+        return res.status(500).send({ code: 500, message: `Ocurrió un error: ${e.message}` });
+    }
+
 });
 
 module.exports = router;
