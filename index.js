@@ -15,11 +15,15 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.get('/', (req, res) => {
-    res.status(200);
-    res.send('Bienvenido al Pokédex');
+    return res.status(200).json({ code: 1, message: 'Bienvenido al Pokédex' });
 });
 
 app.use('/pokemon', routers.pokemon);
+
+
+app.use((req, res) => {
+    return res.status(404).json({ code: 404, message: 'URL no encontrada' });
+});
 
 
 app.listen(process.env.PORT || puerto, () => console.log(`Servidor iniciado en el puerto ${puerto}`));
