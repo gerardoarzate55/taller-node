@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const puerto = 12345;
 
 const routers = {
-    pokemon: require('./routes/pokemon')
+    pokemon: require('./routes/pokemon'),
+    user: require('./routes/user')
 };
 
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/pokemon', routers.pokemon);
+app.use('/user', routers.user);
 
 
 app.use((req, res) => {
