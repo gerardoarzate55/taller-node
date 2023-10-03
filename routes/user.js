@@ -22,7 +22,7 @@ router.get('/:id([0-9]+)', async (req, res) => {
     return res.status(200).send({ code: 200, message: queryResult });
 });
 
-router.post('/', async (req, res) => {
+router.post('/signin', async (req, res) => {
     const params = req.body;
     const userName = params.userName ? `'${params.userName}'` : null;
     const userMail = params.userMail ? `'${params.userMail}'` : null;
