@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const db = require('../config/database');
 
 router.get('/', async (req, res) => {
@@ -43,5 +44,33 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    const { userMail, userPassword } = req.body;
+    const query = `SELECT * FROM USER WHERE user_mail = '${userMail}' AND user_password = '${userPassword}'`;
+
+    if (!userMail || !userPassword) {
+        return res.status(400).send({ code: 400, message: `Datos de autenticación incompletos` });
+    }
+
+    try {
+        const queryResponse = await db.query(query);
+
+        if (queryResponse.length > 0) {
+            const data = queryResponse[0];
+            
+            const token = jwt.sign({
+                userId: data.user_id,
+                userMail: data.user_mail,
+            }, 'debugKey')
+
+            return res.status(200).send({ code: 200, message: token });
+        }
+
+        return res.status(500).send({ code: 500, message: `Acceso denegado` });
+    } catch (e) {
+        return res.status(500).send({ code: 500, message: `Ocurrió un error: ${e.message}` });   
+    }
+    
+});
 
 module.exports = router;
