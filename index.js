@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const middleware = {
     rootDir: require('./middleware/rootDir'),
     auth: require('./middleware/auth'),
-    notFound: require('./middleware/notFound')
+    notFound: require('./middleware/notFound'),
+    cors: require('./middleware/cors')
 } 
 
 const routers = {
@@ -19,6 +20,7 @@ const puerto = 12345;
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(middleware.cors);
 
 
 app.get('/', middleware.rootDir);
