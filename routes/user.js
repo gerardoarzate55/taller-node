@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
             return res.status(200).send({ code: 200, message: token });
         }
 
-        return res.status(401).send({ code: 500, message: `Acceso denegado` });
+        return res.status(401).send({ code: 401, message: `Acceso denegado` });
     } catch (e) {
         return res.status(500).send({ code: 500, message: `Ocurrió un error: ${e.message}` });   
     }
