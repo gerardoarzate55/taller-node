@@ -1,6 +1,11 @@
 window.onload = init;
 
 function init() {
+    if (localStorage.getItem('token')) {
+        window.location.href = 'pokedex.html';
+        return;
+    }
+    
     document.querySelector('.btn-secondary').addEventListener('click', () => {
         window.location.href = 'login.html';
     });

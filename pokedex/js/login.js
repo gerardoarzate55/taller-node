@@ -1,6 +1,11 @@
 window.onload = init;
 
 function init() {
+    if (localStorage.getItem('token')) {
+        window.location.href = 'pokedex.html';
+        return;
+    }
+
     document.querySelector('.btn-secondary').addEventListener('click', () => {
         window.location.href = 'signin.html';
     });
@@ -18,10 +23,18 @@ function login() {
         data: {
             userMail : mail,
             userPassword: pass
-        }
+        },
+        validateStatus: () => true
     })
     . then(res => {
-        console.log(res)
+        console.log(res.data);
+        if (res.data.code === 200) {
+            alert(`Inicio exitoso`);
+            localStorage.setItem('token', res.data.message);
+            window.location.href = 'pokedex.html';
+        } else {
+            alert('Usuario y/o contraseña incorrectos');
+        }
     })
     .catch(e => {
         console.log(e.response.data);
